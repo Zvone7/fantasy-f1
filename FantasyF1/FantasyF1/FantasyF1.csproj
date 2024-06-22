@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="RoundSettings\r11.json" />
+      <None Remove="appsettings.json" />
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+      <None Remove="RoundSettings\r10.json" />
+      <Content Include="RoundSettings\r10.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+        <None Remove="RoundSettings\r11.json" />
+      <Content Update="RoundSettings\r11.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>

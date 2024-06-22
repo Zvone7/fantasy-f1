@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FantasyF1", "FantasyF1\FantasyF1.csproj", "{00D4EB5F-9B29-4C3A-BF1B-CE4A76C4770F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00D4EB5F-9B29-4C3A-BF1B-CE4A76C4770F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00D4EB5F-9B29-4C3A-BF1B-CE4A76C4770F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00D4EB5F-9B29-4C3A-BF1B-CE4A76C4770F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00D4EB5F-9B29-4C3A-BF1B-CE4A76C4770F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

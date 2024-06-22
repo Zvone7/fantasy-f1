@@ -1,0 +1,129 @@
+{
+  "Round": 10,
+  "Budget": 10,
+  "CircuitKey": 15,
+  "CircuitShortName": "Catalunya",
+  "CircuitName": "Spain",
+  "DriverInputs": [
+    {
+      "Name": "VER",
+      "AveragePoints": 161,
+      "CurrentValue": 30.2,
+      "IsAvailable": true
+    },
+    {
+      "Name": "NOR",
+      "AveragePoints": 161,
+      "CurrentValue": 28.8,
+      "IsAvailable": true
+    },
+    {
+      "Name": "LEC",
+      "AveragePoints": 155,
+      "CurrentValue": 27.4,
+      "IsAvailable": false
+    },
+    {
+      "Name": "RUS",
+      "AveragePoints": 149,
+      "CurrentValue": 25.3,
+      "IsAvailable": true
+    },
+    {
+      "Name": "SAI",
+      "AveragePoints": 149,
+      "CurrentValue": 24.8,
+      "IsAvailable": true
+    },
+    {
+      "Name": "PIA",
+      "AveragePoints": 150,
+      "CurrentValue": 23.9,
+      "IsAvailable": false
+    },
+    {
+      "Name": "PER",
+      "AveragePoints": 139,
+      "CurrentValue": 23.2,
+      "IsAvailable": true
+    },
+    {
+      "Name": "HAM",
+      "AveragePoints": 134,
+      "CurrentValue": 22.8,
+      "IsAvailable": true
+    },
+    {
+      "Name": "ALO",
+      "AveragePoints": 133,
+      "CurrentValue": 19.3,
+      "IsAvailable": false
+    },
+    {
+      "Name": "TSU",
+      "AveragePoints": 124,
+      "CurrentValue": 15.4,
+      "IsAvailable": true
+    },
+    {
+      "Name": "STR",
+      "AveragePoints": 115,
+      "CurrentValue": 14.9,
+      "IsAvailable": true
+    },
+    {
+      "Name": "GAS",
+      "AveragePoints": 106,
+      "CurrentValue": 14.2,
+      "IsAvailable": true
+    },
+    {
+      "Name": "HUL",
+      "AveragePoints": 119,
+      "CurrentValue": 14,
+      "IsAvailable": true
+    },
+    {
+      "Name": "OCO",
+      "AveragePoints": 108,
+      "CurrentValue": 12.6,
+      "IsAvailable": true
+    },
+    {
+      "Name": "RIC",
+      "AveragePoints": 108,
+      "CurrentValue": 12.3,
+      "IsAvailable": true
+    },
+    {
+      "Name": "ALB",
+      "AveragePoints": 103,
+      "CurrentValue": 10.2,
+      "IsAvailable": true
+    },
+    {
+      "Name": "BOT",
+      "AveragePoints": 98,
+      "CurrentValue": 9,
+      "IsAvailable": false
+    },
+    {
+      "Name": "ZHO",
+      "AveragePoints": 94,
+      "CurrentValue": 8.8,
+      "IsAvailable": true
+    },
+    {
+      "Name": "MAG",
+      "AveragePoints": 100,
+      "CurrentValue": 8.7,
+      "IsAvailable": true
+    },
+    {
+      "Name": "SAR",
+      "AveragePoints": 86,
+      "CurrentValue": 4.4,
+      "IsAvailable": true
+    }
+  ]
+}
