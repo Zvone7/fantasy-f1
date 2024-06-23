@@ -10,10 +10,7 @@ public static class DriverValueExtensions
         if (dv.Fp1Points < 0 && dv.Fp2Points < 0 && dv.Fp3Points < 0)
             throw new DataException("Impossible case: Driver needs to be in an at least one FP to drive a race");
         if (dv.Fp1Points > 0 && dv.Fp2Points > 0 && dv.Fp3Points > 0)
-        {
-            dv.FpTotalPoints = dv.Fp1Points + dv.Fp2Points + dv.Fp3Points;
             return;
-        }
         var fpsToCount = 1;
         float fpPointSum = 0;
         if (dv.Fp1Points > 0)
@@ -38,6 +35,5 @@ public static class DriverValueExtensions
             if (dv.Fp2Points < 0) dv.Fp2Points = avgFpPoints;
             if (dv.Fp3Points < 0) dv.Fp3Points = avgFpPoints;
         }
-        dv.FpTotalPoints = dv.Fp1Points + dv.Fp2Points + dv.Fp3Points;
     }
 }

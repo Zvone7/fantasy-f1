@@ -3,22 +3,32 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="RoundSettings\r11.json" />
-      <None Remove="appsettings.json" />
+        <None Remove="appsettings.json"/>
         <Content Include="appsettings.json">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
-      <None Remove="RoundSettings\r10.json" />
-      <Content Include="RoundSettings\r10.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
-        <None Remove="RoundSettings\r11.json" />
-      <Content Update="RoundSettings\r11.json">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Content>
+        
+        <None Remove="gridrivalsecrets.json"/>
+        <Content Include="gridrivalsecrets.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        
+        <None Remove="emptygridrivalsecrets.json"/>
+        <Content Include="emptygridrivalsecrets.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        
+        <Content Include="RoundSettings\*">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="CachedData\*">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        
     </ItemGroup>
 
 </Project>

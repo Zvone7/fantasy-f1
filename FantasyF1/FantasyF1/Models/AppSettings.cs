@@ -1,10 +1,11 @@
-using System.Collections.Generic;
+using FantasyF1.Models.GridRival;
 
-namespace FantasyF1.Models
+namespace FantasyF1.Models;
+
+public class AppSettings
 {
-    public class AppSettings
-    {
-        public List<TyrePointsMultiplier> TyrePointsMultipliers { get; set; }
-        public List<DriverInfo> DriverInformation { get; set; }
-    }
+    public int MaxResults { get; set; }
+    public List<TyrePointsMultiplier> TyrePointsMultipliers { get; set; }
+    public List<Driver> DriverInformation { get; set; }
+    public GridRivalSettings GridRivalSettings { get; set; }
 }

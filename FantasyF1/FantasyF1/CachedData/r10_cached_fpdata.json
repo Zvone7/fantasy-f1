@@ -1,0 +1,342 @@
+[
+  {
+    "Name": "VER",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.252
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.504
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.087
+      }
+    ]
+  },
+  {
+    "Name": "NOR",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.228
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.319
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.043
+      }
+    ]
+  },
+  {
+    "Name": "LEC",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 75.434
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.597
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.05
+      }
+    ]
+  },
+  {
+    "Name": "RUS",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 74.614
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.722
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.164
+      }
+    ]
+  },
+  {
+    "Name": "SAI",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 74.572
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.286
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.013
+      }
+    ]
+  },
+  {
+    "Name": "PIA",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.867
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.622
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.907
+      }
+    ]
+  },
+  {
+    "Name": "PER",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.692
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.081
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.723
+      }
+    ]
+  },
+  {
+    "Name": "HAM",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 74.911
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.264
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.359
+      }
+    ]
+  },
+  {
+    "Name": "ALO",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.222
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.091
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.786
+      }
+    ]
+  },
+  {
+    "Name": "TSU",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.916
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.211
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.42
+      }
+    ]
+  },
+  {
+    "Name": "STR",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.512
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.402
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.254
+      }
+    ]
+  },
+  {
+    "Name": "GAS",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 75.484
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.443
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.964
+      }
+    ]
+  },
+  {
+    "Name": "HUL",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": -1
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.053
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.975
+      }
+    ]
+  },
+  {
+    "Name": "OCO",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 75.086
+      },
+      {
+        "TyreType": "medium",
+        "LapDuration": 73.766
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.95
+      }
+    ]
+  },
+  {
+    "Name": "RIC",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.58
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.257
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.161
+      }
+    ]
+  },
+  {
+    "Name": "ALB",
+    "FpData": [
+      {
+        "TyreType": "medium",
+        "LapDuration": 75.417
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.807
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.753
+      }
+    ]
+  },
+  {
+    "Name": "BOT",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.472
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 73.924
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.024
+      }
+    ]
+  },
+  {
+    "Name": "ZHO",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.616
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.345
+      },
+      {
+        "TyreType": "medium",
+        "LapDuration": 74.572
+      }
+    ]
+  },
+  {
+    "Name": "MAG",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.644
+      },
+      {
+        "TyreType": "medium",
+        "LapDuration": 74.021
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.074
+      }
+    ]
+  },
+  {
+    "Name": "SAR",
+    "FpData": [
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.752
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 75.07
+      },
+      {
+        "TyreType": "soft",
+        "LapDuration": 74.729
+      }
+    ]
+  }
+]

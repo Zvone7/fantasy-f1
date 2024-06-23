@@ -1,8 +1,7 @@
-namespace FantasyF1.Models
+namespace FantasyF1.Models;
+
+public class FpData
 {
-    public class FpData
-    {
-        public TyreType TyreType { get; set; }
-        public float LapDuration { get; set; }
-    }
+    public TyreType TyreType { get; set; }
+    public float LapDuration { get; set; }
 }

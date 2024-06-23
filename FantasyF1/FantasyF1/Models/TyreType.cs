@@ -1,11 +1,10 @@
-namespace FantasyF1.Models
+namespace FantasyF1.Models;
+
+public enum TyreType
 {
-    public enum TyreType
-    {
-        Soft,
-        Medium,
-        Hard,
-        Wet,
-        Wet2
-    }
+    Soft,
+    Medium,
+    Hard,
+    Wet,
+    Wet2
 }

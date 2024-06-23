@@ -1,9 +1,16 @@
 {
   "Round": 10,
-  "Budget": 10,
+  "Budget": 70,
   "CircuitKey": 15,
   "CircuitShortName": "Catalunya",
   "CircuitName": "Spain",
+  "UnavailableDrivers": [
+    "LEC",
+    "PIA",
+    "ALO",
+    "BOT",
+    "HUL"
+  ],
   "DriverInputs": [
     {
       "Name": "VER",

@@ -1,34 +1,39 @@
-﻿using System;
-using System.IO;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using FantasyF1.Models;
+using FantasyF1.Models.GridRival;
 using FantasyF1.Services;
 
-namespace FantasyF1
+namespace FantasyF1;
+
+class Program
 {
-    class Program
+    static async Task Main(string[] args)
     {
-        static async Task Main(string[] args)
+        const int round = 10;
+        const Boolean runInCachedMode = true;
+
+        var options = new JsonSerializerOptions
         {
-            var options = new JsonSerializerOptions
-            {
-                Converters = { new TyreTypesConverter() }
-            };
-            var appSettingsContent = await File.ReadAllTextAsync($"appsettings.json");
-            var appSettings = JsonSerializer.Deserialize<AppSettings>(appSettingsContent, options);
-            var roundSettingsFilePath = $"RoundSettings{Path.DirectorySeparatorChar}r11.json";
-            var roundSettingsContent = await File.ReadAllTextAsync(roundSettingsFilePath);
-            var roundSettings = JsonSerializer.Deserialize<RoundSettings>(roundSettingsContent, options);
+            Converters = { new TyreTypesConverter() }
+        };
+        var appSettingsContent = await File.ReadAllTextAsync($"appsettings.json");
+        var appSettings = JsonSerializer.Deserialize<AppSettings>(appSettingsContent, options);
 
-            var f1DataProvider = new OpenF1DataProvider(appSettings, roundSettings);
-            // await f1DataProvider.FillInSessionData();
-            ////// var driverInputsJson = JsonSerializer.Serialize(roundSettings.DriverInputs);
-            // comment out to not spam the server - temp debug in r11
+        var roundSettingsContent = await File.ReadAllTextAsync($"RoundSettings{Path.DirectorySeparatorChar}r{round}.json");
+        var roundSettings = JsonSerializer.Deserialize<RoundSettings>(roundSettingsContent);
 
+        var gridRivalSecretsContent = await File.ReadAllTextAsync($"gridrivalsecrets.json");
+        var gridRivalSecrets = JsonSerializer.Deserialize<GrSecrets>(gridRivalSecretsContent);
 
-            var lineupSuggestor = new LineupSuggestor(appSettings, roundSettings);
-            lineupSuggestor.Suggest();
-        }
+        var drivers = appSettings.DriverInformation;
+
+        var gridRivalDataProvider = new GridRivalDataProvider(appSettings, roundSettings, gridRivalSecrets);
+        var driverGrDataPoints = await gridRivalDataProvider.FetchGrDataAsync(round, drivers, runInCachedMode);
+
+        var f1DataProvider = new OpenF1DataProvider(roundSettings);
+        var driverFpDataPoints = await f1DataProvider.FillInSessionDataAsync(round, drivers, runInCachedMode);
+
+        var lineupSuggestor = new LineupSuggestor(appSettings, roundSettings);
+        lineupSuggestor.Suggest(drivers, driverGrDataPoints, driverFpDataPoints);
     }
 }

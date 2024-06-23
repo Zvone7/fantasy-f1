@@ -1,7 +1,6 @@
-namespace FantasyF1.Models.OpenData
+namespace FantasyF1.Models.OpenData;
+
+public class SessionInfo
 {
-    public class SessionInfo
-    {
-        public int session_key { get; set; }
-    }
+    public int session_key { get; set; }
 }

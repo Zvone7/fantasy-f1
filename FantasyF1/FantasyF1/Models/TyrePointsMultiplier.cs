@@ -1,8 +1,7 @@
-namespace FantasyF1.Models
+namespace FantasyF1.Models;
+
+public class TyrePointsMultiplier
 {
-    public class TyrePointsMultiplier
-    {
-        public TyreType Type { get; set; }
-        public float Multiplier { get; set; }
-    }
+    public TyreType Type { get; set; }
+    public float Multiplier { get; set; }
 }
