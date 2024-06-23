@@ -8,4 +8,5 @@ public class RoundSettings
     public string CircuitShortName { get; set; }
     public int CircuitKey { get; set; }
     public List<String> UnavailableDrivers { get; set; }
+    public List<String> UnavailableConstructors { get; set; }
 }

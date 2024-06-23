@@ -1,6 +1,6 @@
 {
   "Round": 10,
-  "Budget": 70,
+  "Budget": 111.3,
   "CircuitKey": 15,
   "CircuitShortName": "Catalunya",
   "CircuitName": "Spain",
@@ -10,6 +10,9 @@
     "ALO",
     "BOT",
     "HUL"
+  ],
+  "UnavailableConstructors": [
+    "Ferrari"
   ],
   "DriverInputs": [
     {

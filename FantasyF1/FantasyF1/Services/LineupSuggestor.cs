@@ -1,3 +1,4 @@
+using System.Data;
 using FantasyF1.Helpers;
 using FantasyF1.Models;
 using FantasyF1.Models.GridRival;
@@ -17,20 +18,26 @@ public class LineupSuggestor
 
     }
     public void Suggest(
-        List<Driver> drivers,
-        List<DriverGrDataPoint> driverGrDataPoints,
+        (List<Driver>, List<Constructor>) drivers,
+        (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData,
         List<DriverFpDataPoint> driverFpDataPoints
     )
     {
-        var driverValues = CalculateValues(drivers, driverGrDataPoints, driverFpDataPoints);
-        // find all the combinations of 5 drivers
+        var values = CalculateValues(drivers, grData, driverFpDataPoints);
+        // generate c# code that will find all the combinations.
+        // Each combination is an object of class CombinationValue that contains Constructor (type ConstructorValue) and Drivers (type List<DriverValue>)
+        // both ConstructorValue and DriverValue have a property Name, ExpectedPointsToGain, CurrentValue and PerformanceModifier
+        // give me maximum of 5 CombinationValues (which are all unique)
         // where the sum of their ExpectedPointsToGain is biggest but
-        // their total value will be at most equal to value of _roundSettings_.Budget
+        // their total value will be at most equal to value of BUDGET
         // order the results by combinations with most gained points being at the top
-        // give me maximum of 5 options (which are all unique)
-        // in each option order the drivers by the amount of points they will gain individually
+        // in each option order the drivers by the performance amount they will gain individually
+        // print out in the format that first is the ConstructorValue Name, then 5 DriverValue Names such as this:
+        // Ferrari (0.85) | PER (0.9) | GAS (0.8) | ALB (0.7) | RIC (0.6) | MAX (0.5)
 
-        var topCombinations = GetTopDriverCombinations(driverValues.Where(x => x.IsAvailable).ToList());
+        var topCombinations = GetTopDriverCombinations(
+            drivers: values.Item1.Where(x => x.IsAvailable).ToList(),
+            constructors: values.Item2.Where(x => x.IsAvailable).ToList());
         if (!topCombinations.Any())
         {
             Console.WriteLine("No combinations found!");
@@ -38,32 +45,51 @@ public class LineupSuggestor
 
         foreach (var combination in topCombinations)
         {
-            foreach (var driver in combination)
+            var constructor = combination.Constructor;
+            var driversList = combination.Drivers;
+            Console.Write($"{constructor.Name} ({constructor.PerformanceModifier:F2})");
+            foreach (var driver in driversList)
             {
-                Console.Write($"{driver.Name}({driver.PerformanceModifier:F2}) | ");
+                Console.Write($" | {driver.Name} ({driver.PerformanceModifier:F2})");
             }
             Console.WriteLine();
-            Console.WriteLine($"_______{(_roundSettings_.Budget - combination.Sum(x => x.CurrentValue)):F2} mil leftover");
+            Console.WriteLine($"_______{(_roundSettings_.Budget - (combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue))):F2} mil leftover");
         }
     }
 
-    private HashSet<HashSet<DriverValue>> GetTopDriverCombinations(List<DriverValue> drivers)
+    private HashSet<CombinationValue> GetTopDriverCombinations(List<DriverValue> drivers, List<ConstructorValue> constructors)
     {
-        var allCombinations = GetCombinations(drivers, 5);
+        var allDriverCombinations = GetCombinations(drivers, 5);
+        var allCombinations = new List<CombinationValue>();
+        foreach (var constructor in constructors)
+        {
+            foreach (var driverCombination in allDriverCombinations)
+            {
+                var totalValue = constructor.CurrentValue + driverCombination.Sum(driver => driver.CurrentValue);
+                if (totalValue <= _roundSettings_.Budget)
+                {
+                    allCombinations.Add(new CombinationValue
+                    {
+                        Constructor = constructor,
+                        Drivers = driverCombination.ToList()
+                    });
+                }
+            }
+        }
         var validCombinations = allCombinations
-            .Where(combination => combination.Sum(driver => driver.CurrentValue) <= _roundSettings_.Budget)
-            .OrderByDescending(combination => combination.Sum(driver => driver.ExpectedPointsToGain))
+            .Where(combination => (combination.Constructor.CurrentValue + combination.Drivers.Sum(driver => driver.CurrentValue)) <= _roundSettings_.Budget)
+            // .OrderByDescending(combination => combination.Sum(driver => driver.ExpectedPointsToGain))
             .Take(_appSettings_.MaxResults)
-            .Select(l => l
-                .OrderByDescending(y => y.CurrentValue)
-                .ToHashSet())
-            .ToList()
+            // .Select(l => l
+            // .OrderByDescending(y => y.CurrentValue)
+            // .ToHashSet())
+            // .ToList()
             .ToHashSet();
 
 
         foreach (var combination in validCombinations)
         {
-            combination.ToList().Sort((d1, d2) => d2.CurrentValue.CompareTo(d1.CurrentValue));
+            combination.Drivers = combination.Drivers.OrderByDescending(d => d.PerformanceModifier).ToList();
         }
 
         return validCombinations;
@@ -97,16 +123,83 @@ public class LineupSuggestor
         return result;
     }
 
-    private List<DriverValue> CalculateValues(
-        List<Driver> drivers,
-        List<DriverGrDataPoint> driverGrDataPoints,
+    private (List<DriverValue>, List<ConstructorValue>) CalculateValues(
+        (List<Driver>, List<Constructor>) input,
+        (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData,
         List<DriverFpDataPoint> driverFpDataPoints
     )
     {
         var driverValues = new List<DriverValue>();
+        SetupFpDataForDrivers(input.Item1, grData, driverFpDataPoints, driverValues);
+        CalculatePerformanceModifierForDrivers(driverValues);
+
+        var constructorValues = new List<ConstructorValue>();
+        SetupFpDataForConstructors(input.Item1, input.Item2, grData, driverValues, constructorValues);
+        CalculatePerformanceModifierForConstructors(constructorValues);
+
+        return (driverValues, constructorValues);
+    }
+    private void CalculatePerformanceModifierForDrivers(List<DriverValue> driverValues)
+    {
+        var mostPointsBasedOnFpData = driverValues
+            .Max(dv => dv.FpTotalPoints);
+
+        foreach (var dv in driverValues)
+        {
+            var performanceModifier = dv.FpTotalPoints / mostPointsBasedOnFpData;
+            dv.PerformanceModifier = performanceModifier;
+            // maximum amount of points a certain driver is expected to gain
+            // is the average they have gained so far
+            dv.ExpectedPointsToGain = dv.CurrentAvgPoints * performanceModifier;
+        }
+    }
+
+    private void CalculatePerformanceModifierForConstructors(List<ConstructorValue> constructorValues)
+    {
+        var mostPointsBasedOnFpData = constructorValues
+            .Max(dv => dv.DriverExpectedPointsToGain);
+
+        foreach (var cv in constructorValues)
+        {
+            var performanceModifier = cv.DriverExpectedPointsToGain / mostPointsBasedOnFpData;
+            cv.PerformanceModifier = performanceModifier;
+            // maximum amount of points a certain driver is expected to gain
+            // is the average they have gained so far
+            cv.ExpectedPointsToGain = cv.CurrentAvgPoints * performanceModifier * _appSettings_.ConstructorPerformanceImportanceMultiplier;
+        }
+    }
+
+    private void SetupFpDataForConstructors(List<Driver> drivers, List<Constructor> constructors, (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData, List<DriverValue> driverValues, List<ConstructorValue> constructorValues)
+    {
+        foreach (var constructor in constructors)
+        {
+            var cv = new ConstructorValue();
+            var cgr = grData.Item2.FirstOrDefault(x => x.Name.Equals(constructor.Name));
+            cv.CurrentValue = cgr.CurrentValue;
+            cv.IsAvailable = cgr.IsAvailable;
+            cv.Name = constructor.Name;
+            cv.CurrentAvgPoints = cgr.AveragePoints;
+
+            var driversForTheConstructor =
+                drivers
+                    .Where(d => d.TeamName.Equals(constructor.Name))
+                    .ToList();
+
+            float totalExpectedPointsToGain = driversForTheConstructor
+                .Select(constructorDriver => driverValues
+                    .FirstOrDefault(dv => dv.Name.Equals(constructorDriver.Name, StringComparison.OrdinalIgnoreCase)))
+                .Select(driverValue => driverValue.ExpectedPointsToGain).Sum();
+
+            cv.DriverExpectedPointsToGain = totalExpectedPointsToGain;
+            constructorValues.Add(cv);
+        }
+    }
+
+    private void SetupFpDataForDrivers(List<Driver> drivers, (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData, List<DriverFpDataPoint> driverFpDataPoints, List<DriverValue> driverValues)
+    {
         foreach (var driver in drivers)
         {
-            var dgr = driverGrDataPoints.First(x => x.Name.Equals(driver.Name));
+            var dgr = grData.Item1.First(x => x.Name.Equals(driver.Name));
             var dfp = driverFpDataPoints.First(x => x.Name.Equals(driver.Name));
             var dv = new DriverValue();
             dv.Name = dfp.Name;
@@ -120,24 +213,6 @@ public class LineupSuggestor
             dv.IsAvailable = dgr.IsAvailable;
             driverValues.Add(dv);
         }
-
-        var mostPointsBasedOnFpData = driverValues
-            .Max(dv => dv.FpTotalPoints);
-
-        foreach (var dv in driverValues)
-        {
-            if (dv.Name == "SAR")
-            {
-                Console.WriteLine();
-            }
-            var performanceModifier = dv.FpTotalPoints / mostPointsBasedOnFpData;
-            dv.PerformanceModifier = performanceModifier;
-            // maximum amount of points a certain driver is expected to gain
-            // is the average they have gained so far
-            dv.ExpectedPointsToGain = dv.CurrentAvgPoints * performanceModifier;
-        }
-
-        return driverValues;
     }
 
     private float GetPointsForFp(

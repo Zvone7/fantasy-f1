@@ -18,26 +18,28 @@ public class GridRivalDataProvider
         _grSecrets_ = grSecrets;
     }
 
-    public async Task<List<DriverGrDataPoint>> FetchGrDataAsync(
+    public async Task<(List<DriverGrDataPoint>, List<ConstructorGrDataPoint>)> FetchGrDataAsync(
         int round,
         List<Driver> drivers,
+        List<Constructor> constructors,
         Boolean runInCachedMode)
     {
         var driverGrDataPoints = new List<DriverGrDataPoint>();
-        GrListResponse driverRawData;
+        var constructorGrDataPoints = new List<ConstructorGrDataPoint>();
+        GrListResponse gpRawData;
         if (runInCachedMode)
         {
             var cachedGrDataContent = await File.ReadAllTextAsync($"CachedData{Path.DirectorySeparatorChar}r{round}_cached_grdata.json");
-            driverRawData = JsonSerializer.Deserialize<GrListResponse>(cachedGrDataContent);
+            gpRawData = JsonSerializer.Deserialize<GrListResponse>(cachedGrDataContent);
         }
         else
         {
             var token = await GetAuthTokenAsync();
-            driverRawData = await GetDriverDataAsync(token);
+            gpRawData = await GetDriverDataAsync(token);
         }
         foreach (var driver in drivers)
         {
-            var match = driverRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName));
+            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName));
             if (match == null)
             {
                 Console.WriteLine(driver.Name);
@@ -47,13 +49,29 @@ public class GridRivalDataProvider
             {
                 Name = driver.Name,
                 AveragePoints = match.appr,
-                CurrentValue = match.value/1_000_000,
+                CurrentValue = match.value / 1_000_000,
                 IsAvailable = !_roundSettings_.UnavailableDrivers.Contains(driver.Name, StringComparer.OrdinalIgnoreCase)
+            });
+        }
+        foreach (var constructor in constructors)
+        {
+            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(constructor.Name));
+            if (match == null)
+            {
+                Console.WriteLine(constructor.Name);
+                throw new DataException($"Cannot find gridrival data for driver {constructor.Name}");
+            }
+            constructorGrDataPoints.Add(new ConstructorGrDataPoint()
+            {
+                Name = constructor.Name,
+                AveragePoints = match.appr,
+                CurrentValue = match.value / 1_000_000,
+                IsAvailable = !_roundSettings_.UnavailableConstructors.Contains(constructor.Name, StringComparer.OrdinalIgnoreCase)
             });
         }
 
         Console.WriteLine("Driver GridRivalData retrieved " + (runInCachedMode ? "(fromCache)" : "(from server)"));
-        return driverGrDataPoints;
+        return (driverGrDataPoints, constructorGrDataPoints);
     }
 
     private async Task<GrListResponse> GetDriverDataAsync(string authToken)

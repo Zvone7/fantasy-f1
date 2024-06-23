@@ -26,14 +26,15 @@ class Program
         var gridRivalSecrets = JsonSerializer.Deserialize<GrSecrets>(gridRivalSecretsContent);
 
         var drivers = appSettings.DriverInformation;
+        var constructors = appSettings.ConstructorInformation;
 
         var gridRivalDataProvider = new GridRivalDataProvider(appSettings, roundSettings, gridRivalSecrets);
-        var driverGrDataPoints = await gridRivalDataProvider.FetchGrDataAsync(round, drivers, runInCachedMode);
+        var grData = await gridRivalDataProvider.FetchGrDataAsync(round, drivers, constructors, runInCachedMode);
 
         var f1DataProvider = new OpenF1DataProvider(roundSettings);
         var driverFpDataPoints = await f1DataProvider.FillInSessionDataAsync(round, drivers, runInCachedMode);
 
         var lineupSuggestor = new LineupSuggestor(appSettings, roundSettings);
-        lineupSuggestor.Suggest(drivers, driverGrDataPoints, driverFpDataPoints);
+        lineupSuggestor.Suggest((drivers, constructors), grData, driverFpDataPoints);
     }
 }
