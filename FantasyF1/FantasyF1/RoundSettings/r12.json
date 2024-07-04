@@ -5,13 +5,7 @@
   "CircuitShortName": "Spielberg",
   "CircuitName": "Austria",
   "UnavailableDrivers": [
-    "LEC",
-    "PIA",
-    "ALO",
-    "BOT",
-    "HUL"
   ],
   "UnavailableConstructors": [
-    "Ferrari", "Red Bull"
   ]
 }
