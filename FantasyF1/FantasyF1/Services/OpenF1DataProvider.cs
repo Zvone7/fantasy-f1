@@ -25,7 +25,7 @@ public class OpenF1DataProvider
             var cachedFpDataContent = await File.ReadAllTextAsync($"CachedData{Path.DirectorySeparatorChar}r{round}_cached_fpdata.json");
             driverFpDataPoints = JsonSerializer.Deserialize<List<DriverFpDataPoint>>(cachedFpDataContent, new JsonSerializerOptions
             {
-                Converters = { new TyreTypesConverter() }
+                // Converters = { new TyreTypesConverter() }
             });
         }
         else
@@ -43,7 +43,7 @@ public class OpenF1DataProvider
             }
         }
         Console.WriteLine("Driver OpenF1Data retrieved " + (runInCachedMode ? "(fromCache)" : "(from server)"));
-        ////// var driverInputsJson = JsonSerializer.Serialize(driverFpDataPoints);
+        var driverInputsJson = JsonSerializer.Serialize(driverFpDataPoints);
         return driverFpDataPoints;
     }
 

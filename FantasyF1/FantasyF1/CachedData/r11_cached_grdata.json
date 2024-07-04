@@ -1,0 +1,154 @@
+{
+  "previous_elements": [
+    {
+      "full_name": "Lando Norris",
+      "appr": 161.875,
+      "value": 28800000
+    },
+    {
+      "full_name": "Max Verstappen",
+      "appr": 161.75,
+      "value": 30200000
+    },
+    {
+      "full_name": "McLaren",
+      "appr": 158.75,
+      "value": 27600000
+    },
+    {
+      "full_name": "Charles Leclerc",
+      "appr": 155.875,
+      "value": 27400000
+    },
+    {
+      "full_name": "Ferrari",
+      "appr": 154.25,
+      "value": 24400000
+    },
+    {
+      "full_name": "Red Bull",
+      "appr": 154.125,
+      "value": 24700000
+    },
+    {
+      "full_name": "Oscar Piastri",
+      "appr": 150,
+      "value": 23900000
+    },
+    {
+      "full_name": "Carlos Sainz Jr",
+      "appr": 149.75,
+      "value": 24800000
+    },
+    {
+      "full_name": "George Russell",
+      "appr": 140.875,
+      "value": 25300000
+    },
+    {
+      "full_name": "Sergio Perez",
+      "appr": 139,
+      "value": 23200000
+    },
+    {
+      "full_name": "Mercedes",
+      "appr": 138.75,
+      "value": 23100000
+    },
+    {
+      "full_name": "Lewis Hamilton",
+      "appr": 134.5,
+      "value": 22800000
+    },
+    {
+      "full_name": "Fernando Alonso",
+      "appr": 133.875,
+      "value": 19300000
+    },
+    {
+      "full_name": "Yuki Tsunoda",
+      "appr": 124.375,
+      "value": 15400000
+    },
+    {
+      "full_name": "Aston Martin",
+      "appr": 122.5,
+      "value": 17200000
+    },
+    {
+      "full_name": "Nico Hulkenberg",
+      "appr": 119.625,
+      "value": 14000000
+    },
+    {
+      "full_name": "Lance Stroll",
+      "appr": 115.75,
+      "value": 14900000
+    },
+    {
+      "full_name": "Racing Bulls",
+      "appr": 113,
+      "value": 16700000
+    },
+    {
+      "full_name": "Esteban Ocon",
+      "appr": 108.875,
+      "value": 12600000
+    },
+    {
+      "full_name": "Daniel Ricciardo",
+      "appr": 108.25,
+      "value": 12300000
+    },
+    {
+      "full_name": "Pierre Gasly",
+      "appr": 106.375,
+      "value": 14200000
+    },
+    {
+      "full_name": "Alexander Albon",
+      "appr": 103.75,
+      "value": 10200000
+    },
+    {
+      "full_name": "Alpine",
+      "appr": 103.125,
+      "value": 14200000
+    },
+    {
+      "full_name": "Haas",
+      "appr": 101.375,
+      "value": 11400000
+    },
+    {
+      "full_name": "Kevin Magnussen",
+      "appr": 100.375,
+      "value": 8700000
+    },
+    {
+      "full_name": "Valtteri Bottas",
+      "appr": 98.75,
+      "value": 9000000
+    },
+    {
+      "full_name": "Guanyu Zhou",
+      "appr": 94.875,
+      "value": 8800000
+    },
+    {
+      "full_name": "Kick Sauber",
+      "appr": 90,
+      "value": 8200000
+    },
+    {
+      "full_name": "Williams",
+      "appr": 87.125,
+      "value": 8100000
+    },
+    {
+      "full_name": "Logan Sargeant",
+      "appr": 86.857,
+      "value": 4400000
+    }
+  ]
+}

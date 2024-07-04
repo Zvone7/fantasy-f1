@@ -220,7 +220,7 @@ public class LineupSuggestor
         DriverFpDataPoint driverFpDataPoint, int fpIndex)
     {
         var hasDriverBeenInThisFp = false;
-        if (driverFpDataPoint.FpData[fpIndex].LapDuration < 0)
+        if (driverFpDataPoint.FpData.Count - 1 < fpIndex || driverFpDataPoint.FpData[fpIndex].LapDuration < 0)
         {
             return -1;
         }
