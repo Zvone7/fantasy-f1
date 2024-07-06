@@ -43,17 +43,21 @@ public class LineupSuggestor
             Console.WriteLine("No combinations found!");
         }
 
+        Console.WriteLine();
         foreach (var combination in topCombinations)
         {
             var constructor = combination.Constructor;
             var driversList = combination.Drivers;
-            Console.Write($"{constructor.Name} ({constructor.PerformanceModifier:F2})");
+            Console.Write($"{constructor.Name} ({constructor.PerformanceModifier:F2}| {constructor.CurrentValue:F2}$)");
             foreach (var driver in driversList)
             {
-                Console.Write($" | {driver.Name} ({driver.PerformanceModifier:F2})");
+                Console.Write($"|__| {driver.Name} ({driver.PerformanceModifier:F2}| {driver.CurrentValue:F2}$)");
             }
             Console.WriteLine();
-            Console.WriteLine($"_______{(_roundSettings_.Budget - (combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue))):F2} mil leftover");
+            Console.WriteLine($"{_roundSettings_.Budget:F2}-" +
+                              $"{(combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue)):F2}=" +
+                              $"{(_roundSettings_.Budget - (combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue))):F2}");
+            Console.WriteLine();
         }
     }
 

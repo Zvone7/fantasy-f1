@@ -1,0 +1,306 @@
+{
+  "previous_elements": [
+    {
+      "full_name": "Lando Norris",
+      "eid": 100158,
+      "appr": 166.25,
+      "value": 29400000
+    },
+    {
+      "full_name": "Max Verstappen",
+      "eid": 100132,
+      "appr": 162.75,
+      "value": 30900000
+    },
+    {
+      "full_name": "McLaren",
+      "eid": 100153,
+      "appr": 159.5,
+      "value": 26800000
+    },
+    {
+      "full_name": "Ferrari",
+      "eid": 100149,
+      "appr": 154.25,
+      "value": 23700000
+    },
+    {
+      "full_name": "Charles Leclerc",
+      "eid": 100140,
+      "appr": 152.875,
+      "value": 27100000
+    },
+    {
+      "full_name": "Red Bull",
+      "eid": 100150,
+      "appr": 151.875,
+      "value": 25300000
+    },
+    {
+      "full_name": "Carlos Sainz Jr",
+      "eid": 100138,
+      "appr": 149.625,
+      "value": 24800000
+    },
+    {
+      "full_name": "Oscar Piastri",
+      "eid": 948453,
+      "appr": 146.625,
+      "value": 23200000
+    },
+    {
+      "full_name": "George Russell",
+      "eid": 100159,
+      "appr": 142.5,
+      "value": 25900000
+    },
+    {
+      "full_name": "Mercedes",
+      "eid": 100148,
+      "appr": 141.75,
+      "value": 24800000
+    },
+    {
+      "full_name": "Lewis Hamilton",
+      "eid": 100129,
+      "appr": 139.75,
+      "value": 24500000
+    },
+    {
+      "full_name": "Sergio Perez",
+      "eid": 100136,
+      "appr": 133.125,
+      "value": 22300000
+    },
+    {
+      "full_name": "Fernando Alonso",
+      "eid": 100139,
+      "appr": 127.125,
+      "value": 18100000
+    },
+    {
+      "full_name": "Yuki Tsunoda",
+      "eid": 145119,
+      "appr": 120.625,
+      "value": 13400000
+    },
+    {
+      "full_name": "Aston Martin",
+      "eid": 100154,
+      "appr": 120.625,
+      "value": 16900000
+    },
+    {
+      "full_name": "Lance Stroll",
+      "eid": 100145,
+      "appr": 118.125,
+      "value": 13500000
+    },
+    {
+      "full_name": "Nico Hulkenberg",
+      "eid": 100135,
+      "appr": 117.875,
+      "value": 14500000
+    },
+    {
+      "full_name": "Pierre Gasly",
+      "eid": 100142,
+      "appr": 116.125,
+      "value": 16200000
+    },
+    {
+      "full_name": "Racing Bulls",
+      "eid": 100156,
+      "appr": 110.75,
+      "value": 14500000
+    },
+    {
+      "full_name": "Esteban Ocon",
+      "eid": 100164,
+      "appr": 110.625,
+      "value": 13800000
+    },
+    {
+      "full_name": "Daniel Ricciardo",
+      "eid": 100134,
+      "appr": 109.375,
+      "value": 12000000
+    },
+    {
+      "full_name": "Alpine",
+      "eid": 100151,
+      "appr": 109,
+      "value": 15300000
+    },
+    {
+      "full_name": "Valtteri Bottas",
+      "eid": 100133,
+      "appr": 99.875,
+      "value": 8700000
+    },
+    {
+      "full_name": "Haas",
+      "eid": 100152,
+      "appr": 99.75,
+      "value": 11800000
+    },
+    {
+      "full_name": "Alexander Albon",
+      "eid": 100163,
+      "appr": 98.875,
+      "value": 8700000
+    },
+    {
+      "full_name": "Guanyu Zhou",
+      "eid": 752476,
+      "appr": 98.75,
+      "value": 9700000
+    },
+    {
+      "full_name": "Kevin Magnussen",
+      "eid": 100137,
+      "appr": 96.625,
+      "value": 8000000
+    },
+    {
+      "full_name": "Kick Sauber",
+      "eid": 100155,
+      "appr": 92.625,
+      "value": 8700000
+    },
+    {
+      "full_name": "Williams",
+      "eid": 100157,
+      "appr": 82.875,
+      "value": 7300000
+    },
+    {
+      "full_name": "Logan Sargeant",
+      "eid": 948454,
+      "appr": 81.571,
+      "value": 3500000
+    }
+  ],
+  "fp_by_element": {
+    "100132": {
+      "value_previous": 30900000,
+      "value_flux": 700000
+    },
+    "100158": {
+      "value_previous": 29400000,
+      "value_flux": 2000000
+    },
+    "100159": {
+      "value_previous": 25900000,
+      "value_flux": -1300000
+    },
+    "948453": {
+      "value_previous": 23200000,
+      "value_flux": -2000000
+    },
+    "100129": {
+      "value_previous": 24500000,
+      "value_flux": -400000
+    },
+    "100138": {
+      "value_previous": 24800000,
+      "value_flux": -1200000
+    },
+    "100140": {
+      "value_previous": 27100000,
+      "value_flux": 2000000
+    },
+    "100136": {
+      "value_previous": 22300000,
+      "value_flux": 300000
+    },
+    "100139": {
+      "value_previous": 18100000,
+      "value_flux": 2000000
+    },
+    "100135": {
+      "value_previous": 14500000,
+      "value_flux": -2000000
+    },
+    "100142": {
+      "value_previous": 16200000,
+      "value_flux": 0
+    },
+    "145119": {
+      "value_previous": 13400000,
+      "value_flux": 1000000
+    },
+    "100164": {
+      "value_previous": 13800000,
+      "value_flux": 300000
+    },
+    "100145": {
+      "value_previous": 13500000,
+      "value_flux": -200000
+    },
+    "100134": {
+      "value_previous": 12000000,
+      "value_flux": -1800000
+    },
+    "100137": {
+      "value_previous": 8000000,
+      "value_flux": -2000000
+    },
+    "100133": {
+      "value_previous": 8700000,
+      "value_flux": 700000
+    },
+    "752476": {
+      "value_previous": 9700000,
+      "value_flux": 1800000
+    },
+    "100163": {
+      "value_previous": 8700000,
+      "value_flux": 300000
+    },
+    "948454": {
+      "value_previous": 3500000,
+      "value_flux": 700000
+    },
+    "100153": {
+      "value_previous": 26800000,
+      "value_flux": 2000000
+    },
+    "100150": {
+      "value_previous": 25300000,
+      "value_flux": -400000
+    },
+    "100149": {
+      "value_previous": 23700000,
+      "value_flux": -100000
+    },
+    "100148": {
+      "value_previous": 24800000,
+      "value_flux": -1300000
+    },
+    "100154": {
+      "value_previous": 16900000,
+      "value_flux": 1600000
+    },
+    "100151": {
+      "value_previous": 15300000,
+      "value_flux": -100000
+    },
+    "100156": {
+      "value_previous": 14500000,
+      "value_flux": 300000
+    },
+    "100152": {
+      "value_previous": 11800000,
+      "value_flux": -2400000
+    },
+    "100155": {
+      "value_previous": 8700000,
+      "value_flux": 900000
+    },
+    "100157": {
+      "value_previous": 7300000,
+      "value_flux": 0
+    }
+  }
+}

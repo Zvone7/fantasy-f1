@@ -7,9 +7,11 @@ namespace FantasyF1.Services;
 
 public class OpenF1DataProvider
 {
+    private readonly Int32 _round_;
     private readonly RoundSettings _roundSettings_;
-    public OpenF1DataProvider(RoundSettings roundSettings)
+    public OpenF1DataProvider(int round, RoundSettings roundSettings)
     {
+        _round_ = round;
         _roundSettings_ = roundSettings;
 
     }
@@ -36,14 +38,16 @@ public class OpenF1DataProvider
                 foreach (var si in sessionInfos)
                 {
                     var driverFpDataPoint = await GetDriverSessionBestLapDetailsAsync(si.session_key, driver);
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(TimeSpan.FromMilliseconds(100));
                     driverFpDataPoints.Add(driverFpDataPoint);
                     Console.WriteLine($"Done for {si.session_key} {driver.Name}");
                 }
             }
         }
         Console.WriteLine("Driver OpenF1Data retrieved " + (runInCachedMode ? "(fromCache)" : "(from server)"));
-        var driverInputsJson = JsonSerializer.Serialize(driverFpDataPoints);
+        var driverFpDataPointsJson = JsonSerializer.Serialize(driverFpDataPoints);
+        var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_fpdata.json";
+        await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
         return driverFpDataPoints;
     }
 

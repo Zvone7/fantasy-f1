@@ -9,11 +9,13 @@ namespace FantasyF1.Services;
 public class GridRivalDataProvider
 {
     private readonly AppSettings _appSettings_;
+    private readonly Int32 _round_;
     private readonly RoundSettings _roundSettings_;
     private readonly GrSecrets _grSecrets_;
-    public GridRivalDataProvider(AppSettings appSettings, RoundSettings roundSettings, GrSecrets grSecrets)
+    public GridRivalDataProvider(AppSettings appSettings, int round, RoundSettings roundSettings, GrSecrets grSecrets)
     {
         _appSettings_ = appSettings;
+        _round_ = round;
         _roundSettings_ = roundSettings;
         _grSecrets_ = grSecrets;
     }
@@ -32,14 +34,23 @@ public class GridRivalDataProvider
             var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName));
             if (match == null)
             {
-                Console.WriteLine(driver.Name);
-                throw new DataException($"Cannot find gridrival data for driver {driver.Name}");
+                var message = $"Cannot find gridrival (previous_elements) data for driver {driver.Name}";
+                Console.WriteLine(message);
+                throw new DataException(message);
             }
+            var gpDataDriverId = match.eid;
+            if (!gpRawData.fp_by_element.ContainsKey(gpDataDriverId))
+            {
+                var message = $"cannot find gridrival (fp_by_element) data for driver {driver.Name}";
+                Console.WriteLine(message);
+                throw new DataException(message);
+            }
+            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous-gpRawData.fp_by_element[gpDataDriverId].value_flux;
             driverGrDataPoints.Add(new DriverGrDataPoint()
             {
                 Name = driver.Name,
                 AveragePoints = match.appr,
-                CurrentValue = match.value / 1_000_000,
+                CurrentValue = currentValue / 1_000_000,
                 IsAvailable = !_roundSettings_.UnavailableDrivers.Contains(driver.Name, StringComparer.OrdinalIgnoreCase)
             });
         }
@@ -48,9 +59,18 @@ public class GridRivalDataProvider
             var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(constructor.Name));
             if (match == null)
             {
-                Console.WriteLine(constructor.Name);
-                throw new DataException($"Cannot find gridrival data for driver {constructor.Name}");
+                var message = $"Cannot find gridrival data for driver {constructor.Name}";
+                Console.WriteLine(message);
+                throw new DataException(message);
             }
+            var gpDataDriverId = match.eid;
+            if (!gpRawData.fp_by_element.ContainsKey(gpDataDriverId))
+            {
+                var message = $"cannot find gridrival (fp_by_element) data for driver {constructor.Name}";
+                Console.WriteLine(message);
+                throw new DataException(message);
+            }
+            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous-gpRawData.fp_by_element[gpDataDriverId].value_flux;
             constructorGrDataPoints.Add(new ConstructorGrDataPoint()
             {
                 Name = constructor.Name,
@@ -77,6 +97,8 @@ public class GridRivalDataProvider
             var token = await GetAuthTokenAsync();
             gpRawData = await GetDriverDataAsync(token);
             var json = JsonSerializer.Serialize(gpRawData);
+            var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_grdata.json";
+            await File.WriteAllTextAsync(filePath, json);
         }
         return gpRawData;
     }
