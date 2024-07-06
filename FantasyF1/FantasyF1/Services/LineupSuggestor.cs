@@ -18,12 +18,12 @@ public class LineupSuggestor
 
     }
     public void Suggest(
-        (List<Driver>, List<Constructor>) drivers,
-        (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData,
+        (List<Driver>, List<Constructor>) participants,
+        (List<DriverGrDataPoint> driverGrDataPoints, List<ConstructorGrDataPoint> constructorGrDataPoints) grData,
         List<DriverFpDataPoint> driverFpDataPoints
     )
     {
-        var values = CalculateValues(drivers, grData, driverFpDataPoints);
+        var values = CalculateValues(participants, grData, driverFpDataPoints);
         // generate c# code that will find all the combinations.
         // Each combination is an object of class CombinationValue that contains Constructor (type ConstructorValue) and Drivers (type List<DriverValue>)
         // both ConstructorValue and DriverValue have a property Name, ExpectedPointsToGain, CurrentValue and PerformanceModifier
@@ -35,10 +35,10 @@ public class LineupSuggestor
         // print out in the format that first is the ConstructorValue Name, then 5 DriverValue Names such as this:
         // Ferrari (0.85) | PER (0.9) | GAS (0.8) | ALB (0.7) | RIC (0.6) | MAX (0.5)
 
-        var topCombinations = GetTopDriverCombinations(
-            drivers: values.Item1.Where(x => x.IsAvailable).ToList(),
-            constructors: values.Item2.Where(x => x.IsAvailable).ToList());
-        if (!topCombinations.Any())
+        var topCombinations = GetTopCombinations(
+            drivers: values.driverValues.Where(x => x.IsAvailable).ToList(),
+            constructors: values.constructorValues.Where(x => x.IsAvailable).ToList());
+        if (topCombinations.Count == 0)
         {
             Console.WriteLine("No combinations found!");
         }
@@ -61,7 +61,7 @@ public class LineupSuggestor
         }
     }
 
-    private HashSet<CombinationValue> GetTopDriverCombinations(List<DriverValue> drivers, List<ConstructorValue> constructors)
+    private HashSet<CombinationValue> GetTopCombinations(List<DriverValue> drivers, List<ConstructorValue> constructors)
     {
         var allDriverCombinations = GetCombinations(drivers, 5);
         var allCombinations = new List<CombinationValue>();
@@ -127,18 +127,18 @@ public class LineupSuggestor
         return result;
     }
 
-    private (List<DriverValue>, List<ConstructorValue>) CalculateValues(
-        (List<Driver>, List<Constructor>) input,
-        (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData,
+    private (List<DriverValue> driverValues, List<ConstructorValue> constructorValues) CalculateValues(
+        (List<Driver> drivers, List<Constructor> constructors) participants,
+        (List<DriverGrDataPoint> driverGrDataPoints, List<ConstructorGrDataPoint> constructorGrDataPoints) grData,
         List<DriverFpDataPoint> driverFpDataPoints
     )
     {
         var driverValues = new List<DriverValue>();
-        SetupFpDataForDrivers(input.Item1, grData, driverFpDataPoints, driverValues);
+        SetupFpDataForDrivers(participants.drivers, grData.driverGrDataPoints, driverFpDataPoints, driverValues);
         CalculatePerformanceModifierForDrivers(driverValues);
 
         var constructorValues = new List<ConstructorValue>();
-        SetupFpDataForConstructors(input.Item1, input.Item2, grData, driverValues, constructorValues);
+        SetupFpDataForConstructors(participants.drivers, participants.constructors, grData.constructorGrDataPoints, driverValues, constructorValues);
         CalculatePerformanceModifierForConstructors(constructorValues);
 
         return (driverValues, constructorValues);
@@ -173,12 +173,12 @@ public class LineupSuggestor
         }
     }
 
-    private void SetupFpDataForConstructors(List<Driver> drivers, List<Constructor> constructors, (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData, List<DriverValue> driverValues, List<ConstructorValue> constructorValues)
+    private void SetupFpDataForConstructors(List<Driver> drivers, List<Constructor> constructors, List<ConstructorGrDataPoint> constructorGrDataPoints, List<DriverValue> driverValues, List<ConstructorValue> constructorValues)
     {
         foreach (var constructor in constructors)
         {
             var cv = new ConstructorValue();
-            var cgr = grData.Item2.FirstOrDefault(x => x.Name.Equals(constructor.Name));
+            var cgr = constructorGrDataPoints.FirstOrDefault(x => x.Name.Equals(constructor.Name));
             cv.CurrentValue = cgr.CurrentValue;
             cv.IsAvailable = cgr.IsAvailable;
             cv.Name = constructor.Name;
@@ -199,11 +199,11 @@ public class LineupSuggestor
         }
     }
 
-    private void SetupFpDataForDrivers(List<Driver> drivers, (List<DriverGrDataPoint>, List<ConstructorGrDataPoint>) grData, List<DriverFpDataPoint> driverFpDataPoints, List<DriverValue> driverValues)
+    private void SetupFpDataForDrivers(List<Driver> drivers, List<DriverGrDataPoint> driverGrDataPoints, List<DriverFpDataPoint> driverFpDataPoints, List<DriverValue> driverValues)
     {
         foreach (var driver in drivers)
         {
-            var dgr = grData.Item1.First(x => x.Name.Equals(driver.Name));
+            var dgr = driverGrDataPoints.First(x => x.Name.Equals(driver.Name));
             var dfp = driverFpDataPoints.First(x => x.Name.Equals(driver.Name));
             var dv = new DriverValue();
             dv.Name = dfp.Name;
@@ -223,7 +223,6 @@ public class LineupSuggestor
         List<DriverFpDataPoint> driverFpDataPoints,
         DriverFpDataPoint driverFpDataPoint, int fpIndex)
     {
-        var hasDriverBeenInThisFp = false;
         if (driverFpDataPoint.FpData.Count - 1 < fpIndex || driverFpDataPoint.FpData[fpIndex].LapDuration < 0)
         {
             return -1;

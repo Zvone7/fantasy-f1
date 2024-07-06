@@ -63,19 +63,19 @@ public class GridRivalDataProvider
                 Console.WriteLine(message);
                 throw new DataException(message);
             }
-            var gpDataDriverId = match.eid;
-            if (!gpRawData.fp_by_element.ContainsKey(gpDataDriverId))
+            var gpDataConstructorId = match.eid;
+            if (!gpRawData.fp_by_element.ContainsKey(gpDataConstructorId))
             {
                 var message = $"cannot find gridrival (fp_by_element) data for driver {constructor.Name}";
                 Console.WriteLine(message);
                 throw new DataException(message);
             }
-            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous-gpRawData.fp_by_element[gpDataDriverId].value_flux;
+            var currentValue = gpRawData.fp_by_element[gpDataConstructorId].value_previous-gpRawData.fp_by_element[gpDataConstructorId].value_flux;
             constructorGrDataPoints.Add(new ConstructorGrDataPoint()
             {
                 Name = constructor.Name,
                 AveragePoints = match.appr,
-                CurrentValue = match.value / 1_000_000,
+                CurrentValue = currentValue / 1_000_000,
                 IsAvailable = !_roundSettings_.UnavailableConstructors.Contains(constructor.Name, StringComparer.OrdinalIgnoreCase)
             });
         }
