@@ -178,7 +178,7 @@ public class LineupSuggestor
         foreach (var constructor in constructors)
         {
             var cv = new ConstructorValue();
-            var cgr = constructorGrDataPoints.FirstOrDefault(x => x.Name.Equals(constructor.Name));
+            var cgr = constructorGrDataPoints.FirstOrDefault(x => x.Name.Equals(constructor.Name, StringComparison.OrdinalIgnoreCase));
             cv.CurrentValue = cgr.CurrentValue;
             cv.IsAvailable = cgr.IsAvailable;
             cv.Name = constructor.Name;
@@ -186,7 +186,7 @@ public class LineupSuggestor
 
             var driversForTheConstructor =
                 drivers
-                    .Where(d => d.TeamName.Equals(constructor.Name))
+                    .Where(d => d.TeamName.Equals(constructor.Name, StringComparison.OrdinalIgnoreCase))
                     .ToList();
 
             float totalExpectedPointsToGain = driversForTheConstructor
@@ -203,8 +203,8 @@ public class LineupSuggestor
     {
         foreach (var driver in drivers)
         {
-            var dgr = driverGrDataPoints.First(x => x.Name.Equals(driver.Name));
-            var dfp = driverFpDataPoints.First(x => x.Name.Equals(driver.Name));
+            var dgr = driverGrDataPoints.First(x => x.Name.Equals(driver.Name, StringComparison.OrdinalIgnoreCase));
+            var dfp = driverFpDataPoints.First(x => x.Name.Equals(driver.Name, StringComparison.OrdinalIgnoreCase));
             var dv = new DriverValue();
             dv.Name = dfp.Name;
             dv.Fp1Points = GetPointsForFp(driverFpDataPoints, dfp, 0);

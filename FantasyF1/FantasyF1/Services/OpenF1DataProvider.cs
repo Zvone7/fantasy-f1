@@ -36,7 +36,7 @@ public class OpenF1DataProvider
                     if (driverFpDataPoint.FpData.Count > 1)
                         throw new Exception($"Impossibe FP Data case for driver {driver.Name} on session {si.session_key}: more than best time found");
                     await Task.Delay(TimeSpan.FromMilliseconds(500));
-                    var existing = driverFpDataPoints.FirstOrDefault(x => x.Name.Equals(driver.Name));
+                    var existing = driverFpDataPoints.FirstOrDefault(x => x.Name.Equals(driver.Name, StringComparison.OrdinalIgnoreCase));
                     if (existing != null)
                         existing.FpData.Add(driverFpDataPoint.FpData.First());
                     else

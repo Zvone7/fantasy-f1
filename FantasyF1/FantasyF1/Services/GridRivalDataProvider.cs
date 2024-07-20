@@ -31,7 +31,7 @@ public class GridRivalDataProvider
         GrListResponse gpRawData = await RetrieveDataAsync(round, forceDataRefresh);
         foreach (var driver in drivers)
         {
-            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName));
+            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName, StringComparison.OrdinalIgnoreCase));
             if (match == null)
             {
                 var message = $"Cannot find gridrival (previous_elements) data for driver {driver.Name}";
@@ -56,7 +56,7 @@ public class GridRivalDataProvider
         }
         foreach (var constructor in constructors)
         {
-            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(constructor.Name));
+            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(constructor.Name, StringComparison.OrdinalIgnoreCase));
             if (match == null)
             {
                 var message = $"Cannot find gridrival data for driver {constructor.Name}";
