@@ -1,0 +1,342 @@
+[
+  {
+    "Name": "VER",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 78.989
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.031
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.379
+      }
+    ]
+  },
+  {
+    "Name": "SAR",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.885
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.611
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.168
+      }
+    ]
+  },
+  {
+    "Name": "RIC",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.578
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.371
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.652
+      }
+    ]
+  },
+  {
+    "Name": "NOR",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.211
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.788
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.098
+      }
+    ]
+  },
+  {
+    "Name": "GAS",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.976
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.888
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.499
+      }
+    ]
+  },
+  {
+    "Name": "PER",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.44
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.255
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.954
+      }
+    ]
+  },
+  {
+    "Name": "ALO",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.686
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.519
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.001
+      }
+    ]
+  },
+  {
+    "Name": "STR",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.265
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 79.179
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.085
+      }
+    ]
+  },
+  {
+    "Name": "MAG",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 80.295
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.315
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.507
+      }
+    ]
+  },
+  {
+    "Name": "TSU",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.26
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 79.606
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.744
+      }
+    ]
+  },
+  {
+    "Name": "ALB",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.794
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.514
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.661
+      }
+    ]
+  },
+  {
+    "Name": "OCO",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 80.023
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.754
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.575
+      }
+    ]
+  },
+  {
+    "Name": "HAM",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.287
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.363
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.786
+      }
+    ]
+  },
+  {
+    "Name": "SAI",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 78.713
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.185
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.639
+      }
+    ]
+  },
+  {
+    "Name": "RUS",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.137
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.294
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.564
+      }
+    ]
+  },
+  {
+    "Name": "BOT",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.804
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.586
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.804
+      }
+    ]
+  },
+  {
+    "Name": "PIA",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.249
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.618
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.142
+      }
+    ]
+  },
+  {
+    "Name": "HUL",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": -1
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 78.791
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.696
+      }
+    ]
+  },
+  {
+    "Name": "ZHO",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.18
+      },
+      {
+        "TyreType": 1,
+        "LapDuration": 80.067
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 77.291
+      }
+    ]
+  },
+  {
+    "Name": "LEC",
+    "FpData": [
+      {
+        "TyreType": 0,
+        "LapDuration": 79.011
+      },
+      {
+        "TyreType": 1,
+        "LapDuration": 79.286
+      },
+      {
+        "TyreType": 0,
+        "LapDuration": 76.803
+      }
+    ]
+  }
+]

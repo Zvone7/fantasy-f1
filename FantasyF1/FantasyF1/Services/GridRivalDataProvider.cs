@@ -24,11 +24,11 @@ public class GridRivalDataProvider
         int round,
         List<Driver> drivers,
         List<Constructor> constructors,
-        Boolean runInCachedMode)
+        Boolean forceDataRefresh)
     {
         var driverGrDataPoints = new List<DriverGrDataPoint>();
         var constructorGrDataPoints = new List<ConstructorGrDataPoint>();
-        GrListResponse gpRawData = await RetrieveDataAsync(round, runInCachedMode);
+        GrListResponse gpRawData = await RetrieveDataAsync(round, forceDataRefresh);
         foreach (var driver in drivers)
         {
             var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName));
@@ -45,7 +45,7 @@ public class GridRivalDataProvider
                 Console.WriteLine(message);
                 throw new DataException(message);
             }
-            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous-gpRawData.fp_by_element[gpDataDriverId].value_flux;
+            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous - gpRawData.fp_by_element[gpDataDriverId].value_flux;
             driverGrDataPoints.Add(new DriverGrDataPoint()
             {
                 Name = driver.Name,
@@ -70,7 +70,7 @@ public class GridRivalDataProvider
                 Console.WriteLine(message);
                 throw new DataException(message);
             }
-            var currentValue = gpRawData.fp_by_element[gpDataConstructorId].value_previous-gpRawData.fp_by_element[gpDataConstructorId].value_flux;
+            var currentValue = gpRawData.fp_by_element[gpDataConstructorId].value_previous - gpRawData.fp_by_element[gpDataConstructorId].value_flux;
             constructorGrDataPoints.Add(new ConstructorGrDataPoint()
             {
                 Name = constructor.Name,
@@ -80,25 +80,26 @@ public class GridRivalDataProvider
             });
         }
 
-        Console.WriteLine("Driver GridRivalData retrieved " + (runInCachedMode ? "(fromCache)" : "(from server)"));
+        Console.WriteLine("Driver GridRivalData retrieved " + (forceDataRefresh ? "(from server)" : "(from cache)"));
         return (driverGrDataPoints, constructorGrDataPoints);
     }
-    private async Task<GrListResponse> RetrieveDataAsync(Int32 round, Boolean runInCachedMode)
+    private async Task<GrListResponse> RetrieveDataAsync(Int32 round, Boolean forceDataRefresh)
     {
 
         GrListResponse gpRawData;
-        if (runInCachedMode)
-        {
-            var cachedGrDataContent = await File.ReadAllTextAsync($"CachedData{Path.DirectorySeparatorChar}r{round}_cached_grdata.json");
-            gpRawData = JsonSerializer.Deserialize<GrListResponse>(cachedGrDataContent);
-        }
-        else
+        var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_grdata.json";
+        if (forceDataRefresh || !File.Exists(filePath))
         {
             var token = await GetAuthTokenAsync();
             gpRawData = await GetDriverDataAsync(token);
             var json = JsonSerializer.Serialize(gpRawData);
-            var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_grdata.json";
-            await File.WriteAllTextAsync(filePath, json);
+            if (!File.Exists(filePath))
+                await File.WriteAllTextAsync(filePath, json);
+        }
+        else
+        {
+            var cachedGrDataContent = await File.ReadAllTextAsync($"CachedData{Path.DirectorySeparatorChar}r{round}_cached_grdata.json");
+            gpRawData = JsonSerializer.Deserialize<GrListResponse>(cachedGrDataContent);
         }
         return gpRawData;
     }

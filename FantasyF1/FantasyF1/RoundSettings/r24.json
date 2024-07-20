@@ -1,0 +1,17 @@
+{
+  "Round": 1,
+  "Budget": 100,
+  "CircuitKey": -1111,
+  "CircuitShortName": "Abu Dhabi",
+  "CircuitName": "",
+  "UnavailableDrivers": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "UnavailableConstructors": [
+    ""
+  ]
+}

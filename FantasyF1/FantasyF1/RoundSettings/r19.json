@@ -1,0 +1,17 @@
+{
+  "Round": 1,
+  "Budget": 100,
+  "CircuitKey": 9,
+  "CircuitShortName": "Austin",
+  "CircuitName": "",
+  "UnavailableDrivers": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "UnavailableConstructors": [
+    ""
+  ]
+}

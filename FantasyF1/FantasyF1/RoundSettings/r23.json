@@ -1,0 +1,17 @@
+{
+  "Round": 1,
+  "Budget": 100,
+  "CircuitKey": 150,
+  "CircuitShortName": "Qatar",
+  "CircuitName": "",
+  "UnavailableDrivers": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "UnavailableConstructors": [
+    ""
+  ]
+}

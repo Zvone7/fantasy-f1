@@ -1,0 +1,17 @@
+{
+  "Round": 1,
+  "Budget": 100,
+  "CircuitKey": 144,
+  "CircuitShortName": "Baku",
+  "CircuitName": "Azerbaijan",
+  "UnavailableDrivers": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "UnavailableConstructors": [
+    ""
+  ]
+}

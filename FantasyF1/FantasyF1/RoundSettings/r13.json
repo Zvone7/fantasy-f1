@@ -1,0 +1,18 @@
+{
+  "Round": 1,
+  "Budget": 101.3,
+  "CircuitKey": 4,
+  "CircuitShortName": "Hungaroring",
+  "CircuitName": "",
+  "UnavailableDrivers": [
+    "VER",
+    "ALO",
+    "RIC",
+    "MAG",
+    "SAR"
+  ],
+  "UnavailableConstructors": [
+    "Red Bull",
+    "Aston Martin"
+  ]
+}

@@ -18,19 +18,12 @@ public class OpenF1DataProvider
     public async Task<List<DriverFpDataPoint>> FillInSessionDataAsync(
         int round,
         List<Driver> drivers,
-        Boolean runInCachedMode)
+        Boolean forceDataRefresh)
     {
         var driverFpDataPoints = new List<DriverFpDataPoint>();
+        var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_fpdata.json";
 
-        if (runInCachedMode)
-        {
-            var cachedFpDataContent = await File.ReadAllTextAsync($"CachedData{Path.DirectorySeparatorChar}r{round}_cached_fpdata.json");
-            driverFpDataPoints = JsonSerializer.Deserialize<List<DriverFpDataPoint>>(cachedFpDataContent, new JsonSerializerOptions
-            {
-                // Converters = { new TyreTypesConverter() }
-            });
-        }
-        else
+        if (forceDataRefresh || !File.Exists(filePath))
         {
             var sessionInfos = await HttpHelper.GetAsync<List<SessionInfo>>($"sessions?year=2024&circuit_key={_roundSettings_.CircuitKey}&session_type=Practice");
             foreach (var driver in drivers)
@@ -38,16 +31,32 @@ public class OpenF1DataProvider
                 foreach (var si in sessionInfos)
                 {
                     var driverFpDataPoint = await GetDriverSessionBestLapDetailsAsync(si.session_key, driver);
-                    await Task.Delay(TimeSpan.FromMilliseconds(100));
-                    driverFpDataPoints.Add(driverFpDataPoint);
+                    if (driverFpDataPoint.FpData.Count == 0)
+                        Console.WriteLine($"No fp data found for {driver.Name} session {si.session_key}");
+                    if (driverFpDataPoint.FpData.Count > 1)
+                        throw new Exception($"Impossibe FP Data case for driver {driver.Name} on session {si.session_key}: more than best time found");
+                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                    var existing = driverFpDataPoints.FirstOrDefault(x => x.Name.Equals(driver.Name));
+                    if (existing != null)
+                        existing.FpData.Add(driverFpDataPoint.FpData.First());
+                    else
+                        driverFpDataPoints.Add(driverFpDataPoint);
                     Console.WriteLine($"Done for {si.session_key} {driver.Name}");
                 }
             }
+            var driverFpDataPointsJson = JsonSerializer.Serialize(driverFpDataPoints);
+            if (!File.Exists(filePath))
+                await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
         }
-        Console.WriteLine("Driver OpenF1Data retrieved " + (runInCachedMode ? "(fromCache)" : "(from server)"));
-        var driverFpDataPointsJson = JsonSerializer.Serialize(driverFpDataPoints);
-        var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_fpdata.json";
-        await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
+        else
+        {
+            var cachedFpDataContent = await File.ReadAllTextAsync(filePath);
+            driverFpDataPoints = JsonSerializer.Deserialize<List<DriverFpDataPoint>>(cachedFpDataContent, new JsonSerializerOptions
+            {
+                // Converters = { new TyreTypesConverter() }
+            });
+        }
+        Console.WriteLine("Driver OpenF1Data retrieved " + (forceDataRefresh ? "(from server)" : "(from cache)"));
         return driverFpDataPoints;
     }
 

@@ -8,7 +8,7 @@ public static class DriverValueExtensions
     public static void FillInPointsForMissedFp(this DriverValue dv)
     {
         if (dv.Fp1Points < 0 && dv.Fp2Points < 0 && dv.Fp3Points < 0)
-            throw new DataException("Impossible case: Driver needs to be in an at least one FP to drive a race");
+            throw new DataException($"Impossible case: Driver {dv.Name} needs to be in an at least one FP to drive a race");
         if (dv.Fp1Points > 0 && dv.Fp2Points > 0 && dv.Fp3Points > 0)
             return;
         var fpsToCount = 0;

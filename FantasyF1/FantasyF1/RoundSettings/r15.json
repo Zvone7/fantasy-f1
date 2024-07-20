@@ -1,0 +1,17 @@
+{
+  "Round": 1,
+  "Budget": 100,
+  "CircuitKey": 55,
+  "CircuitShortName": "Zandvoort",
+  "CircuitName": "",
+  "UnavailableDrivers": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "UnavailableConstructors": [
+    ""
+  ]
+}

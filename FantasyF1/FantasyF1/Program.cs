@@ -9,9 +9,9 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        const int round = 12;
-        const Boolean runInCachedModeFpData = true;
-        const Boolean runInCachedModeGridRivalData = true;
+        const int round = 13;
+        const Boolean forceRefreshGridRivalData = false;
+        const Boolean forceRefreshFpData = false;
 
         var options = new JsonSerializerOptions
         {
@@ -30,10 +30,10 @@ class Program
         var constructors = appSettings.ConstructorInformation;
 
         var gridRivalDataProvider = new GridRivalDataProvider(appSettings, round, roundSettings, gridRivalSecrets);
-        var grData = await gridRivalDataProvider.FetchGrDataAsync(round, drivers, constructors, runInCachedModeGridRivalData);
+        var grData = await gridRivalDataProvider.FetchGrDataAsync(round, drivers, constructors, forceRefreshGridRivalData);
 
         var f1DataProvider = new OpenF1DataProvider(round, roundSettings);
-        var driverFpDataPoints = await f1DataProvider.FillInSessionDataAsync(round, drivers, runInCachedModeFpData);
+        var driverFpDataPoints = await f1DataProvider.FillInSessionDataAsync(round, drivers, forceRefreshFpData);
 
         var lineupSuggestor = new LineupSuggestor(appSettings, roundSettings);
         lineupSuggestor.Suggest((drivers, constructors), grData, driverFpDataPoints);
