@@ -154,7 +154,7 @@ public class LineupSuggestor
             dv.PerformanceModifier = performanceModifier;
             // maximum amount of points a certain driver is expected to gain
             // is the average they have gained so far
-            dv.ExpectedPointsToGain = dv.CurrentAvgPoints * performanceModifier;
+            dv.ExpectedPointsToGain = dv.CurrentAvgPointsAdjusted * performanceModifier;
         }
     }
 
@@ -169,7 +169,7 @@ public class LineupSuggestor
             cv.PerformanceModifier = performanceModifier;
             // maximum amount of points a certain driver is expected to gain
             // is the average they have gained so far
-            cv.ExpectedPointsToGain = cv.CurrentAvgPoints * performanceModifier * _appSettings_.ConstructorPerformanceImportanceMultiplier;
+            cv.ExpectedPointsToGain = cv.CurrentAvgPointsAdjusted * performanceModifier * _appSettings_.ConstructorPerformanceImportanceMultiplier;
         }
     }
 
@@ -183,6 +183,7 @@ public class LineupSuggestor
             cv.IsAvailable = cgr.IsAvailable;
             cv.Name = constructor.Name;
             cv.CurrentAvgPoints = cgr.AveragePoints;
+            cv.CurrentAvgPointsAdjusted = cgr.AveragePointsAdjusted;
 
             var driversForTheConstructor =
                 drivers
@@ -211,6 +212,7 @@ public class LineupSuggestor
             dv.Fp2Points = GetPointsForFp(driverFpDataPoints, dfp, 1);
             dv.Fp3Points = GetPointsForFp(driverFpDataPoints, dfp, 2);
             dv.CurrentAvgPoints = dgr.AveragePoints;
+            dv.CurrentAvgPointsAdjusted = dgr.AveragePointsAdjusted;
             dv.FillInPointsForMissedFp();
             dv.FpTotalPoints = dv.Fp1Points + dv.Fp2Points + dv.Fp3Points;
             dv.CurrentValue = dgr.CurrentValue;

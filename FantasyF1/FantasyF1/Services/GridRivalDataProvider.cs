@@ -28,13 +28,53 @@ public class GridRivalDataProvider
         Boolean forceDataRefresh)
     {
         GrListResponse gpRawData = await RetrieveDataAsync(round, forceDataRefresh);
-        
+
         var driverGrDataPoints = MapDriverGrDataPoints(drivers, gpRawData);
         var constructorGrDataPoints = MapConstructorGrDataPoints(constructors, gpRawData);
+        AdjustGrDriverData(driverGrDataPoints);
+        AdjustGrConstructorData(constructorGrDataPoints);
+
+        foreach (var constructor in constructorGrDataPoints.Where(x => x.AveragePointsAdjusted != x.AveragePoints))
+        {
+            Console.WriteLine($"{constructor.Name} taking a {(constructor.AveragePoints - constructor.AveragePointsAdjusted):F2} points deduction.");
+        }
+        foreach (var driver in driverGrDataPoints.Where(x => x.AveragePointsAdjusted != x.AveragePoints))
+        {
+            Console.WriteLine($"{driver.Name} taking a {(driver.AveragePoints - driver.AveragePointsAdjusted):F2} points deduction.");
+        }
 
         Console.WriteLine("Driver GridRivalData retrieved " + (forceDataRefresh ? "(from server)" : "(from cache)"));
         return (driverGrDataPoints, constructorGrDataPoints);
     }
+
+    private void AdjustGrConstructorData(List<ConstructorGrDataPoint> constructorGrDataPoints)
+    {
+        var averageAll = constructorGrDataPoints.Average(d => d.AveragePoints);
+        foreach (var constructor in constructorGrDataPoints)
+        {
+            var d = (float)_appSettings_.HighAveragePointsDeductionInPercentForConstructors / 100;
+            var possibleAdjustedPoints = constructor.AveragePoints - d * constructor.AveragePoints;
+            if (possibleAdjustedPoints > averageAll)
+                constructor.AveragePointsAdjusted = (float)possibleAdjustedPoints;
+            else
+                constructor.AveragePointsAdjusted = constructor.AveragePoints;
+        }
+    }
+
+    private void AdjustGrDriverData(List<DriverGrDataPoint> driverGrDataPoints)
+    {
+        var averageAll = driverGrDataPoints.Average(d => d.AveragePoints);
+        foreach (var driver in driverGrDataPoints)
+        {
+            var d = (float)_appSettings_.HighAveragePointsDeductionInPercentForDrivers / 100;
+            var possibleAdjustedPoints = driver.AveragePoints - d * driver.AveragePoints;
+            if (possibleAdjustedPoints > averageAll)
+                driver.AveragePointsAdjusted = (float)possibleAdjustedPoints;
+            else
+                driver.AveragePointsAdjusted = driver.AveragePoints;
+        }
+    }
+
     private List<ConstructorGrDataPoint> MapConstructorGrDataPoints(List<Constructor> constructors, GrListResponse gpRawData)
     {
         var constructorGrDataPoints = new List<ConstructorGrDataPoint>();
@@ -65,10 +105,9 @@ public class GridRivalDataProvider
         }
         return constructorGrDataPoints;
     }
-    
+
     private List<DriverGrDataPoint> MapDriverGrDataPoints(List<Driver> drivers, GrListResponse gpRawData)
     {
-
         var driverGrDataPoints = new List<DriverGrDataPoint>();
         foreach (var driver in drivers)
         {
@@ -97,6 +136,7 @@ public class GridRivalDataProvider
         }
         return driverGrDataPoints;
     }
+
     private async Task<GrListResponse> RetrieveDataAsync(Int32 round, Boolean forceDataRefresh)
     {
         GrListResponse gpRawData;
@@ -141,6 +181,7 @@ public class GridRivalDataProvider
             throw;
         }
     }
+    
     private async Task<String> GetAuthTokenAsync()
     {
         try
