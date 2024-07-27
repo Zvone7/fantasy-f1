@@ -27,34 +27,17 @@ public class GridRivalDataProvider
         List<Constructor> constructors,
         Boolean forceDataRefresh)
     {
-        var driverGrDataPoints = new List<DriverGrDataPoint>();
-        var constructorGrDataPoints = new List<ConstructorGrDataPoint>();
         GrListResponse gpRawData = await RetrieveDataAsync(round, forceDataRefresh);
-        foreach (var driver in drivers)
-        {
-            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName, StringComparison.OrdinalIgnoreCase));
-            if (match == null)
-            {
-                var message = $"Cannot find gridrival (previous_elements) data for driver {driver.Name}";
-                Console.WriteLine(message);
-                throw new DataException(message);
-            }
-            var gpDataDriverId = match.eid;
-            if (!gpRawData.fp_by_element.ContainsKey(gpDataDriverId))
-            {
-                var message = $"cannot find gridrival (fp_by_element) data for driver {driver.Name}";
-                Console.WriteLine(message);
-                throw new DataException(message);
-            }
-            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous - gpRawData.fp_by_element[gpDataDriverId].value_flux;
-            driverGrDataPoints.Add(new DriverGrDataPoint()
-            {
-                Name = driver.Name,
-                AveragePoints = match.appr,
-                CurrentValue = currentValue / 1_000_000,
-                IsAvailable = !_roundSettings_.UnavailableDrivers.Contains(driver.Name, StringComparer.OrdinalIgnoreCase)
-            });
-        }
+        
+        var driverGrDataPoints = MapDriverGrDataPoints(drivers, gpRawData);
+        var constructorGrDataPoints = MapConstructorGrDataPoints(constructors, gpRawData);
+
+        Console.WriteLine("Driver GridRivalData retrieved " + (forceDataRefresh ? "(from server)" : "(from cache)"));
+        return (driverGrDataPoints, constructorGrDataPoints);
+    }
+    private List<ConstructorGrDataPoint> MapConstructorGrDataPoints(List<Constructor> constructors, GrListResponse gpRawData)
+    {
+        var constructorGrDataPoints = new List<ConstructorGrDataPoint>();
         foreach (var constructor in constructors)
         {
             var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(constructor.Name, StringComparison.OrdinalIgnoreCase));
@@ -80,9 +63,39 @@ public class GridRivalDataProvider
                 IsAvailable = !_roundSettings_.UnavailableConstructors.Contains(constructor.Name, StringComparer.OrdinalIgnoreCase)
             });
         }
+        return constructorGrDataPoints;
+    }
+    
+    private List<DriverGrDataPoint> MapDriverGrDataPoints(List<Driver> drivers, GrListResponse gpRawData)
+    {
 
-        Console.WriteLine("Driver GridRivalData retrieved " + (forceDataRefresh ? "(from server)" : "(from cache)"));
-        return (driverGrDataPoints, constructorGrDataPoints);
+        var driverGrDataPoints = new List<DriverGrDataPoint>();
+        foreach (var driver in drivers)
+        {
+            var match = gpRawData.previous_elements.FirstOrDefault(pe => pe.full_name.Equals(driver.FullName, StringComparison.OrdinalIgnoreCase));
+            if (match == null)
+            {
+                var message = $"Cannot find gridrival (previous_elements) data for driver {driver.Name}";
+                Console.WriteLine(message);
+                throw new DataException(message);
+            }
+            var gpDataDriverId = match.eid;
+            if (!gpRawData.fp_by_element.ContainsKey(gpDataDriverId))
+            {
+                var message = $"cannot find gridrival (fp_by_element) data for driver {driver.Name}";
+                Console.WriteLine(message);
+                throw new DataException(message);
+            }
+            var currentValue = gpRawData.fp_by_element[gpDataDriverId].value_previous - gpRawData.fp_by_element[gpDataDriverId].value_flux;
+            driverGrDataPoints.Add(new DriverGrDataPoint()
+            {
+                Name = driver.Name,
+                AveragePoints = match.appr,
+                CurrentValue = currentValue / 1_000_000,
+                IsAvailable = !_roundSettings_.UnavailableDrivers.Contains(driver.Name, StringComparer.OrdinalIgnoreCase)
+            });
+        }
+        return driverGrDataPoints;
     }
     private async Task<GrListResponse> RetrieveDataAsync(Int32 round, Boolean forceDataRefresh)
     {
