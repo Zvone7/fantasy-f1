@@ -1,6 +1,7 @@
 using System.Data;
 using System.Text;
 using System.Text.Json;
+using FantasyF1.Helpers;
 using FantasyF1.Models;
 using FantasyF1.Models.GridRival;
 
@@ -85,16 +86,15 @@ public class GridRivalDataProvider
     }
     private async Task<GrListResponse> RetrieveDataAsync(Int32 round, Boolean forceDataRefresh)
     {
-
         GrListResponse gpRawData;
         var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_grdata.json";
-        if (forceDataRefresh || !File.Exists(filePath))
+        if (forceDataRefresh || !(await CachedFileHelpers.IsValidCachedFileAsync(filePath)))
         {
+            Console.WriteLine("Retrieving OpenF1Data from server");
             var token = await GetAuthTokenAsync();
             gpRawData = await GetDriverDataAsync(token);
             var json = JsonSerializer.Serialize(gpRawData);
-            if (!File.Exists(filePath))
-                await File.WriteAllTextAsync(filePath, json);
+            await File.WriteAllTextAsync(filePath, json);
         }
         else
         {

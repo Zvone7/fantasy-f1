@@ -1,3 +1,4 @@
+using System.Data;
 using System.Text.Json;
 using FantasyF1.Helpers;
 using FantasyF1.Models;
@@ -22,10 +23,13 @@ public class OpenF1DataProvider
     {
         var driverFpDataPoints = new List<DriverFpDataPoint>();
         var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_fpdata.json";
-
-        if (forceDataRefresh || !File.Exists(filePath))
+        
+        if (forceDataRefresh || !(await CachedFileHelpers.IsValidCachedFileAsync(filePath)))
         {
+            Console.WriteLine("Retrieving OpenF1Data from server");
             var sessionInfos = await HttpHelper.GetAsync<List<SessionInfo>>($"sessions?year=2024&circuit_key={_roundSettings_.CircuitKey}&session_type=Practice");
+            if (!sessionInfos.Any())
+                throw new DataException($"No sessions found for circuit key {_roundSettings_.CircuitKey}");
             foreach (var driver in drivers)
             {
                 foreach (var si in sessionInfos)
@@ -45,8 +49,7 @@ public class OpenF1DataProvider
                 }
             }
             var driverFpDataPointsJson = JsonSerializer.Serialize(driverFpDataPoints);
-            if (!File.Exists(filePath))
-                await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
+            await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
         }
         else
         {
