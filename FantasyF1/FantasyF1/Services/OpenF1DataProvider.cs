@@ -9,10 +9,12 @@ namespace FantasyF1.Services;
 public class OpenF1DataProvider
 {
     private readonly Int32 _round_;
+    private readonly AppSettings _appSettings_;
     private readonly RoundSettings _roundSettings_;
-    public OpenF1DataProvider(int round, RoundSettings roundSettings)
+    public OpenF1DataProvider(int round, AppSettings appSettings, RoundSettings roundSettings)
     {
         _round_ = round;
+        _appSettings_ = appSettings;
         _roundSettings_ = roundSettings;
 
     }
@@ -23,33 +25,44 @@ public class OpenF1DataProvider
     {
         var driverFpDataPoints = new List<DriverFpDataPoint>();
         var filePath = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}{Path.DirectorySeparatorChar}CachedData{Path.DirectorySeparatorChar}r{_round_}_cached_fpdata.json";
-        
+
         if (forceDataRefresh || !(await CachedFileHelpers.IsValidCachedFileAsync(filePath)))
         {
-            Console.WriteLine("Retrieving OpenF1Data from server");
-            var sessionInfos = await HttpHelper.GetAsync<List<SessionInfo>>($"sessions?year=2024&circuit_key={_roundSettings_.CircuitKey}&session_type=Practice");
-            if (!sessionInfos.Any())
-                throw new DataException($"No sessions found for circuit key {_roundSettings_.CircuitKey}");
-            foreach (var driver in drivers)
+            try
             {
-                foreach (var si in sessionInfos)
+                Console.WriteLine("Retrieving OpenF1Data from server");
+                var sessionInfos = await HttpHelper.GetAsync<List<SessionInfo>>($"sessions?year=2024&circuit_key={_roundSettings_.CircuitKey}&session_type=Practice");
+                if (!sessionInfos.Any())
+                    throw new DataException($"No sessions found for circuit key {_roundSettings_.CircuitKey}");
+                for (var i = 0; i < drivers.Count; i++)
                 {
-                    var driverFpDataPoint = await GetDriverSessionBestLapDetailsAsync(si.session_key, driver);
-                    if (driverFpDataPoint.FpData.Count == 0)
-                        Console.WriteLine($"No fp data found for {driver.Name} session {si.session_key}");
-                    if (driverFpDataPoint.FpData.Count > 1)
-                        throw new Exception($"Impossibe FP Data case for driver {driver.Name} on session {si.session_key}: more than best time found");
-                    await Task.Delay(TimeSpan.FromMilliseconds(500));
-                    var existing = driverFpDataPoints.FirstOrDefault(x => x.Name.Equals(driver.Name, StringComparison.OrdinalIgnoreCase));
-                    if (existing != null)
-                        existing.FpData.Add(driverFpDataPoint.FpData.First());
-                    else
-                        driverFpDataPoints.Add(driverFpDataPoint);
-                    Console.WriteLine($"Done for {si.session_key} {driver.Name}");
+                    var driver = drivers[i];
+                    foreach (var si in sessionInfos)
+                    {
+                        var driverFpDataPoint = await GetDriverSessionBestLapDetailsAsync(si.session_key, driver);
+                        if (driverFpDataPoint.FpData.Count == 0)
+                            Console.WriteLine($"No fp data found for {driver.Name} session {si.session_key}");
+                        if (driverFpDataPoint.FpData.Count > 1)
+                            throw new Exception($"Impossibe FP Data case for driver {driver.Name} on session {si.session_key}: more than best time found");
+                        await Task.Delay(TimeSpan.FromMilliseconds(_appSettings_.OpenF1DataDelayInMs));
+                        var existing = driverFpDataPoints.FirstOrDefault(x => x.Name.Equals(driver.Name, StringComparison.OrdinalIgnoreCase));
+                        if (existing != null)
+                            existing.FpData.Add(driverFpDataPoint.FpData.First());
+                        else
+                            driverFpDataPoints.Add(driverFpDataPoint);
+                        Console.WriteLine($"Done for {si.session_key} {driver.Name}");
+                    }
+                    Console.WriteLine($"_Done for {i + 1}/{drivers.Count}");
                 }
+                var driverFpDataPointsJson = JsonSerializer.Serialize(driverFpDataPoints);
+                await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
+
             }
-            var driverFpDataPointsJson = JsonSerializer.Serialize(driverFpDataPoints);
-            await File.WriteAllTextAsync(filePath, driverFpDataPointsJson);
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         else
         {

@@ -1,17 +1,21 @@
 {
   "Round": 1,
-  "Budget": 100,
+  "Budget": 100.4,
   "CircuitKey": 55,
   "CircuitShortName": "Zandvoort",
   "CircuitName": "",
   "UnavailableDrivers": [
-    "",
-    "",
-    "",
-    "",
-    ""
+    "VER",
+    "TSU",
+    "GAS",
+    "RUS",
+    "ZHO",
+    "SAR",
+    "PER",
+    "OCO"
   ],
   "UnavailableConstructors": [
-    ""
+    "Red Bull",
+    "Aston Martin"
   ]
 }

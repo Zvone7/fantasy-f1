@@ -1,1 +1,276 @@
-{"previous_elements":[{"full_name":"Max Verstappen","eid":100132,"appr":172.625},{"full_name":"Lando Norris","eid":100158,"appr":162},{"full_name":"Lewis Hamilton","eid":100129,"appr":157.875},{"full_name":"McLaren","eid":100153,"appr":157.5},{"full_name":"Oscar Piastri","eid":948453,"appr":154.75},{"full_name":"Mercedes","eid":100148,"appr":151.125},{"full_name":"George Russell","eid":100159,"appr":149.875},{"full_name":"Carlos Sainz Jr","eid":100138,"appr":148.25},{"full_name":"Red Bull","eid":100150,"appr":147.75},{"full_name":"Ferrari","eid":100149,"appr":147.375},{"full_name":"Charles Leclerc","eid":100140,"appr":141.875},{"full_name":"Nico Hulkenberg","eid":100135,"appr":124.25},{"full_name":"Sergio Perez","eid":100136,"appr":121.75},{"full_name":"Fernando Alonso","eid":100139,"appr":119.75},{"full_name":"Lance Stroll","eid":100145,"appr":119},{"full_name":"Daniel Ricciardo","eid":100134,"appr":116.625},{"full_name":"Aston Martin","eid":100154,"appr":115.875},{"full_name":"Yuki Tsunoda","eid":145119,"appr":114.875},{"full_name":"Esteban Ocon","eid":100164,"appr":114.625},{"full_name":"Racing Bulls","eid":100156,"appr":110.5},{"full_name":"Pierre Gasly","eid":100142,"appr":110},{"full_name":"Alpine","eid":100151,"appr":107.125},{"full_name":"Alexander Albon","eid":100163,"appr":106.875},{"full_name":"Haas","eid":100152,"appr":104.5},{"full_name":"Kevin Magnussen","eid":100137,"appr":100.75},{"full_name":"Guanyu Zhou","eid":752476,"appr":99.75},{"full_name":"Valtteri Bottas","eid":100133,"appr":97.125},{"full_name":"Williams","eid":100157,"appr":91.625},{"full_name":"Kick Sauber","eid":100155,"appr":91},{"full_name":"Logan Sargeant","eid":948454,"appr":86.875}],"fp_by_element":{"100132":{"value_previous":30400000,"value_flux":1000000},"100129":{"value_previous":26900000,"value_flux":-600000},"100158":{"value_previous":27900000,"value_flux":-800000},"948453":{"value_previous":25400000,"value_flux":-1900000},"100159":{"value_previous":25200000,"value_flux":1000000},"100138":{"value_previous":25700000,"value_flux":700000},"100140":{"value_previous":23100000,"value_flux":-1200000},"145119":{"value_previous":13300000,"value_flux":-1500000},"100145":{"value_previous":15700000,"value_flux":-500000},"100135":{"value_previous":18500000,"value_flux":1400000},"100134":{"value_previous":13500000,"value_flux":-200000},"100136":{"value_previous":20000000,"value_flux":-1100000},"100139":{"value_previous":16900000,"value_flux":200000},"100164":{"value_previous":11600000,"value_flux":1800000},"100163":{"value_previous":10400000,"value_flux":-100000},"100142":{"value_previous":14200000,"value_flux":2000000},"100137":{"value_previous":11000000,"value_flux":800000},"100133":{"value_previous":7900000,"value_flux":-300000},"752476":{"value_previous":7000000,"value_flux":1100000},"948454":{"value_previous":4800000,"value_flux":-200000},"100153":{"value_previous":26100000,"value_flux":-900000},"100148":{"value_previous":26300000,"value_flux":1100000},"100149":{"value_previous":23300000,"value_flux":-900000},"100150":{"value_previous":23300000,"value_flux":-200000},"100156":{"value_previous":13300000,"value_flux":-600000},"100154":{"value_previous":17500000,"value_flux":-300000},"100152":{"value_previous":15300000,"value_flux":500000},"100151":{"value_previous":12800000,"value_flux":2000000},"100157":{"value_previous":8700000,"value_flux":-400000},"100155":{"value_previous":7800000,"value_flux":0}}}
+{
+  "previous_elements": [
+    {
+      "full_name": "Max Verstappen",
+      "eid": 100132,
+      "appr": 172.625
+    },
+    {
+      "full_name": "Lando Norris",
+      "eid": 100158,
+      "appr": 162
+    },
+    {
+      "full_name": "Lewis Hamilton",
+      "eid": 100129,
+      "appr": 157.875
+    },
+    {
+      "full_name": "McLaren",
+      "eid": 100153,
+      "appr": 157.5
+    },
+    {
+      "full_name": "Oscar Piastri",
+      "eid": 948453,
+      "appr": 154.75
+    },
+    {
+      "full_name": "Mercedes",
+      "eid": 100148,
+      "appr": 151.125
+    },
+    {
+      "full_name": "George Russell",
+      "eid": 100159,
+      "appr": 149.875
+    },
+    {
+      "full_name": "Carlos Sainz Jr",
+      "eid": 100138,
+      "appr": 148.25
+    },
+    {
+      "full_name": "Red Bull",
+      "eid": 100150,
+      "appr": 147.75
+    },
+    {
+      "full_name": "Ferrari",
+      "eid": 100149,
+      "appr": 147.375
+    },
+    {
+      "full_name": "Charles Leclerc",
+      "eid": 100140,
+      "appr": 141.875
+    },
+    {
+      "full_name": "Nico Hulkenberg",
+      "eid": 100135,
+      "appr": 124.25
+    },
+    {
+      "full_name": "Sergio Perez",
+      "eid": 100136,
+      "appr": 121.75
+    },
+    {
+      "full_name": "Fernando Alonso",
+      "eid": 100139,
+      "appr": 119.75
+    },
+    {
+      "full_name": "Lance Stroll",
+      "eid": 100145,
+      "appr": 119
+    },
+    {
+      "full_name": "Daniel Ricciardo",
+      "eid": 100134,
+      "appr": 116.625
+    },
+    {
+      "full_name": "Aston Martin",
+      "eid": 100154,
+      "appr": 115.875
+    },
+    {
+      "full_name": "Yuki Tsunoda",
+      "eid": 145119,
+      "appr": 114.875
+    },
+    {
+      "full_name": "Esteban Ocon",
+      "eid": 100164,
+      "appr": 114.625
+    },
+    {
+      "full_name": "Racing Bulls",
+      "eid": 100156,
+      "appr": 110.5
+    },
+    {
+      "full_name": "Pierre Gasly",
+      "eid": 100142,
+      "appr": 110
+    },
+    {
+      "full_name": "Alpine",
+      "eid": 100151,
+      "appr": 107.125
+    },
+    {
+      "full_name": "Alexander Albon",
+      "eid": 100163,
+      "appr": 106.875
+    },
+    {
+      "full_name": "Haas",
+      "eid": 100152,
+      "appr": 104.5
+    },
+    {
+      "full_name": "Kevin Magnussen",
+      "eid": 100137,
+      "appr": 100.75
+    },
+    {
+      "full_name": "Guanyu Zhou",
+      "eid": 752476,
+      "appr": 99.75
+    },
+    {
+      "full_name": "Valtteri Bottas",
+      "eid": 100133,
+      "appr": 97.125
+    },
+    {
+      "full_name": "Williams",
+      "eid": 100157,
+      "appr": 91.625
+    },
+    {
+      "full_name": "Kick Sauber",
+      "eid": 100155,
+      "appr": 91
+    },
+    {
+      "full_name": "Logan Sargeant",
+      "eid": 948454,
+      "appr": 86.875
+    }
+  ],
+  "fp_by_element": {
+    "100132": {
+      "value_previous": 30400000,
+      "value_flux": 1000000
+    },
+    "100129": {
+      "value_previous": 26900000,
+      "value_flux": -600000
+    },
+    "100158": {
+      "value_previous": 27900000,
+      "value_flux": -800000
+    },
+    "948453": {
+      "value_previous": 25400000,
+      "value_flux": -1900000
+    },
+    "100159": {
+      "value_previous": 25200000,
+      "value_flux": 1000000
+    },
+    "100138": {
+      "value_previous": 25700000,
+      "value_flux": 700000
+    },
+    "100140": {
+      "value_previous": 23100000,
+      "value_flux": -1200000
+    },
+    "145119": {
+      "value_previous": 13300000,
+      "value_flux": -1500000
+    },
+    "100145": {
+      "value_previous": 15700000,
+      "value_flux": -500000
+    },
+    "100135": {
+      "value_previous": 18500000,
+      "value_flux": 1400000
+    },
+    "100134": {
+      "value_previous": 13500000,
+      "value_flux": -200000
+    },
+    "100136": {
+      "value_previous": 20000000,
+      "value_flux": -1100000
+    },
+    "100139": {
+      "value_previous": 16900000,
+      "value_flux": 200000
+    },
+    "100164": {
+      "value_previous": 11600000,
+      "value_flux": 1800000
+    },
+    "100163": {
+      "value_previous": 10400000,
+      "value_flux": -100000
+    },
+    "100142": {
+      "value_previous": 14200000,
+      "value_flux": 2000000
+    },
+    "100137": {
+      "value_previous": 11000000,
+      "value_flux": 800000
+    },
+    "100133": {
+      "value_previous": 7900000,
+      "value_flux": -300000
+    },
+    "752476": {
+      "value_previous": 7000000,
+      "value_flux": 1100000
+    },
+    "948454": {
+      "value_previous": 4800000,
+      "value_flux": -200000
+    },
+    "100153": {
+      "value_previous": 26100000,
+      "value_flux": -900000
+    },
+    "100148": {
+      "value_previous": 26300000,
+      "value_flux": 1100000
+    },
+    "100149": {
+      "value_previous": 23300000,
+      "value_flux": -900000
+    },
+    "100150": {
+      "value_previous": 23300000,
+      "value_flux": -200000
+    },
+    "100156": {
+      "value_previous": 13300000,
+      "value_flux": -600000
+    },
+    "100154": {
+      "value_previous": 17500000,
+      "value_flux": -300000
+    },
+    "100152": {
+      "value_previous": 15300000,
+      "value_flux": 500000
+    },
+    "100151": {
+      "value_previous": 12800000,
+      "value_flux": 2000000
+    },
+    "100157": {
+      "value_previous": 8700000,
+      "value_flux": -400000
+    },
+    "100155": {
+      "value_previous": 7800000,
+      "value_flux": 0
+    }
+  }
+}

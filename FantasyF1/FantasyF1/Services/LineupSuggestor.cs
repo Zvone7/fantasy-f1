@@ -54,9 +54,9 @@ public class LineupSuggestor
                 Console.Write($"|__| {driver.Name} ({driver.PerformanceModifier:F2}| {driver.CurrentValue:F2}$)");
             }
             Console.WriteLine();
-            Console.WriteLine($"{_roundSettings_.Budget:F2}$ - " +
-                              $"{(combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue)):F2}$ = " +
-                              $"{(_roundSettings_.Budget - (combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue))):F2}$");
+            Console.WriteLine($"{_roundSettings_.Budget:F2} mil $ - " +
+                              $"{(combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue)):F2} mil $ = " +
+                              $"{(_roundSettings_.Budget - (combination.Constructor.CurrentValue + combination.Drivers.Sum(x => x.CurrentValue))):F2} mil $");
             Console.WriteLine();
         }
     }

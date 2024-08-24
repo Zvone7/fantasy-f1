@@ -9,7 +9,7 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        const int round = 14;
+        const int round = 15;
         const Boolean forceRefreshGridRivalData = false;
         const Boolean forceRefreshFpData = false;
 
@@ -32,8 +32,11 @@ class Program
         var gridRivalDataProvider = new GridRivalDataProvider(appSettings, round, roundSettings, gridRivalSecrets);
         var grData = await gridRivalDataProvider.FetchGrDataAsync(round, drivers, constructors, forceRefreshGridRivalData);
 
-        var f1DataProvider = new OpenF1DataProvider(round, roundSettings);
+        var f1DataProvider = new OpenF1DataProvider(round, appSettings, roundSettings);
         var driverFpDataPoints = await f1DataProvider.FillInSessionDataAsync(round, drivers, forceRefreshFpData);
+
+        var fpDataDisplayService = new FpDataDisplayService();
+        fpDataDisplayService.DisplayData(driverFpDataPoints);
 
         var lineupSuggestor = new LineupSuggestor(appSettings, roundSettings);
         lineupSuggestor.Suggest((drivers, constructors), grData, driverFpDataPoints);
